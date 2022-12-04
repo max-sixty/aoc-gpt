@@ -62,9 +62,7 @@ or
 winget install aoc-cli
 ```
 
-> Different Advent of Code users get different puzzle input. To download your input and submit your answer, you need an adventofcode.com session cookie. To obtain your session cookie, login to the Advent of Code website and inspect the session value of the cookie that gets stored in your browser. Put the session number (a long hex string) in a file called .adventofcode.session in your home directory. This file should only contain your session number, in a single line.
->
-> All instructions can be found here: [https://github.com/scarvalhojr/aoc-cli#session-cookie](https://github.com/scarvalhojr/aoc-cli#session-cookie)
+or
 
 ### Install OpenAI API
 
