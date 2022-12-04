@@ -42,29 +42,19 @@ python3 openai.py --day=2 --year=2019 --runs=10
 
 ### Install aoc-cli
 
-All instructions can be found here: [https://github.com/scarvalhojr/aoc-cli](https://github.com/scarvalhojr/aoc-cli)
+All instructions can be found in the [aoc-cli repo](https://github.com/scarvalhojr/aoc-cli)
 
 Install the `aoc-cli` library:
 
 ```bash
 cargo install aoc-cli
-```
-
-or
-
-```bash
+# or
 brew install scarvalhojr/tap/aoc-cli
-```
-
-or
-
-```bash
+# or, for Windows
 winget install aoc-cli
 ```
 
-> Different Advent of Code users get different puzzle input. To download your input and submit your answer, you need an adventofcode.com session cookie. To obtain your session cookie, login to the Advent of Code website and inspect the session value of the cookie that gets stored in your browser. Put the session number (a long hex string) in a file called .adventofcode.session in your home directory. This file should only contain your session number, in a single line.
->
-> All instructions can be found here: [https://github.com/scarvalhojr/aoc-cli#session-cookie](https://github.com/scarvalhojr/aoc-cli#session-cookie)
+And [add the AOC session cookie](https://github.com/scarvalhojr/aoc-cli#session-cookie).
 
 ### Install OpenAI API
 
@@ -74,6 +64,5 @@ Install the `openai` library:
 pip install openai
 ```
 
-> Add your OpenAI API key to the `OPENAI_API_KEY` environment variable.
-
-You can get your API key here: [https://beta.openai.com/account/api-keys](https://beta.openai.com/account/api-keys)
+Add an [OpenAI API key](https://beta.openai.com/account/api-keys) to the
+`OPENAI_API_KEY` environment variable.
