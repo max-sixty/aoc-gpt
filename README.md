@@ -42,27 +42,19 @@ python3 openai.py --day=2 --year=2019 --runs=10
 
 ### Install aoc-cli
 
-All instructions can be found here: [https://github.com/scarvalhojr/aoc-cli](https://github.com/scarvalhojr/aoc-cli)
+All instructions can be found in the [aoc-cli repo](https://github.com/scarvalhojr/aoc-cli)
 
 Install the `aoc-cli` library:
 
 ```bash
 cargo install aoc-cli
-```
-
-or
-
-```bash
+# or
 brew install scarvalhojr/tap/aoc-cli
-```
-
-or
-
-```bash
+# or, for Windows
 winget install aoc-cli
 ```
 
-or
+And [add the AOC session cookie](https://github.com/scarvalhojr/aoc-cli#session-cookie).
 
 ### Install OpenAI API
 
@@ -72,6 +64,5 @@ Install the `openai` library:
 pip install openai
 ```
 
-> Add your OpenAI API key to the `OPENAI_API_KEY` environment variable.
-
-You can get your API key here: [https://beta.openai.com/account/api-keys](https://beta.openai.com/account/api-keys)
+Add an [OpenAI API key](https://beta.openai.com/account/api-keys) to the
+`OPENAI_API_KEY` environment variable.
