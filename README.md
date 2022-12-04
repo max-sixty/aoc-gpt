@@ -15,12 +15,12 @@ previous version.
 # How it works
 
 The code is written in Python, and uses the OpenAI API to call GPT-3.
-It also uses the `aoc` library to download the puzzle input and submit the answer.
+It also uses the `aoc-cli` library to download the puzzle input and submit the answer.
 
 # How to use
 
 ```bash
-$ python3 openai.py --day 2
+$ python3 openai.py --day=2
 ```
 
 All flags:
@@ -35,29 +35,41 @@ All flags:
 Example:
 
 ```bash
-$ python3 openai.py --day 2 --year 2019 --runs 10
+$ python3 openai.py --day=2 --year=2019 --runs=10
 ```
 
 # Installation
 
-Install the `aoc` library:
+## Install aoc-cli
 
-    # cargo install aoc-cli
+All instructions can be found here: [https://github.com/scarvalhojr/aoc-cli](https://github.com/scarvalhojr/aoc-cli)
 
-    or
+Install the `aoc-cli` library:
 
-    # brew install scarvalhojr/tap/aoc-cli
-
-    or
-
-    # winget install aoc-cli
-
+```bash
+$ cargo install aoc-cli
+```
+or
+```bash
+$ brew install scarvalhojr/tap/aoc-cli
+```
+or
+```bash
+$ winget install aoc-cli
+```
 
 > Different Advent of Code users get different puzzle input. To download your input and submit your answer, you need an adventofcode.com session cookie. To obtain your session cookie, login to the Advent of Code website and inspect the session value of the cookie that gets stored in your browser. Put the session number (a long hex string) in a file called .adventofcode.session in your home directory. This file should only contain your session number, in a single line.
+>
+> All instructions can be found here: [https://github.com/scarvalhojr/aoc-cli#session-cookie](https://github.com/scarvalhojr/aoc-cli#session-cookie)
+
+## Install OpenAI API
 
 Install the `openai` library:
 
-    pip install openai
+```bash
+$ pip install openai
+```
 
 > Add your OpenAI API key to the `OPENAI_API_KEY` environment variable.
 
+You can get your API key here: [https://beta.openai.com/account/api-keys](https://beta.openai.com/account/api-keys)
