@@ -220,6 +220,7 @@ def submit_result(day, year, part, answer):
 
 def run_parallel(
     day: int,
+    year: int,
     part: int,
     stop_when_submitted: bool,
     n_workers: int,
@@ -259,7 +260,7 @@ def run_parallel(
                 next = top_results[1][1] if len(top_results) == 2 else 0
                 if top - next >= threshold:
                     print(f"Submitting {top_results[0][0]}. Counts were {c}")
-                    out = submit_result(day, part, c.most_common(1)[0][0])
+                    out = submit_result(day, year, part, c.most_common(1)[0][0])
                     print(out)
                     submitted = True
                     if stop_when_submitted:
@@ -299,13 +300,13 @@ def run(day: int, year: int, part: int, n_workers: int, runs: int, stop_when_sub
     write_instructions(day, year)
 
     if part is None:
-        run_parallel(day, 1, stop_when_submitted, n_workers, runs)
-        run_parallel(day, 2, stop_when_submitted, n_workers, runs)
+        run_parallel(day, year, 1, stop_when_submitted, n_workers, runs)
+        run_parallel(day, year, 2, stop_when_submitted, n_workers, runs)
     else:
         if n_workers == 1:
             do_part(0, day, part)
         else:
-            run_parallel(day, part, stop_when_submitted, n_workers, runs)
+            run_parallel(day, year, part, stop_when_submitted, n_workers, runs)
 
 
 if __name__ == "__main__":
