@@ -29,21 +29,19 @@ PUZZLE_FILE = "puzzle.md"
 
 THRESHOLD = 2
 
+def year_day_path(year: int, day: int) -> Path:
+    return Path(f"{year}-{day}")
 
-def day_path(day: int) -> Path:
-    return Path(f"day-{day}")
-
-
-def write_instructions(day: int) -> None:
+def write_instructions(day: int, year: int) -> None:
     subprocess.run(
-        f"aoc download --overwrite --input-file=input.txt --day={day}",
+        f"aoc download --overwrite --input-file=input.txt --day={day} --year={year}",
         shell=True,
         capture_output=True,
         check=True,
         text=True,
     ).stdout
     subprocess.run(
-        f"aoc read --overwrite --puzzle-file=puzzle.md --day={day}",
+        f"aoc read --overwrite --puzzle-file=puzzle.md --day={day} --year={year}",
         shell=True,
         capture_output=True,
         check=True,
@@ -209,10 +207,10 @@ def read_results(part: int) -> Counter:
     return c
 
 
-def submit_result(day, part, answer):
+def submit_result(day, year, part, answer):
     logger.info(f"Submitting {answer} for part {part}")
     return subprocess.run(
-        f"aoc submit --day={day} {part} {answer}",
+        f"aoc submit --day={day} --year={year} {part} {answer}",
         shell=True,
         capture_output=True,
         check=True,
@@ -225,6 +223,7 @@ def run_parallel(
     part: int,
     stop_when_submitted: bool,
     n_workers: int,
+    runs: int,
     threshold: int = THRESHOLD,
 ):
 
@@ -237,7 +236,7 @@ def run_parallel(
         fs = []
 
         # If we can't do it in 200 runs, we're probably not going to do it at all
-        for n in range(200):
+        for n in range(runs):
             fs.append(executor.submit(func, n))
 
         for f in futures.as_completed(fs):
@@ -276,33 +275,37 @@ def run_parallel(
         print(f"Reached all attempts without success, stopping. Final results: {c}")
         return
 
+def get_year():
+    return int(subprocess.run("date +%Y", shell=True, capture_output=True, text=True).stdout)
 
 @click.command()
 @click.option("--part", type=int)
 @click.option("--day", type=int, required=True)
+@click.option("--year", type=int, required=False, default=get_year())
 @click.option("--n-workers", type=int, default=1)
+@click.option("--runs", type=int, required=False, default=200)
 @click.option("--stop-when-submitted", is_flag=True)
-def run(day: int, part: int, n_workers: int, stop_when_submitted: bool) -> None:
+def run(day: int, year: int, part: int, n_workers: int, runs: int, stop_when_submitted: bool) -> None:
 
-    day_path(day).mkdir(exist_ok=True)
-    (day_path(day) / RESPONSES_PATH).mkdir(exist_ok=True)
-    (day_path(day) / OUTPUTS_PATH).mkdir(exist_ok=True)
-    (day_path(day) / REQUESTS_PATH).mkdir(exist_ok=True)
+    year_day_path(year, day).mkdir(exist_ok=True)
+    (year_day_path(year, day) / RESPONSES_PATH).mkdir(exist_ok=True)
+    (year_day_path(year, day) / OUTPUTS_PATH).mkdir(exist_ok=True)
+    (year_day_path(year, day) / REQUESTS_PATH).mkdir(exist_ok=True)
     # Slightly hacky way to make the day path local; which for executing the python is
     # important, becasue we don't want to confuse the AI by giving it a more complicated
     # path than `input.txt`.
-    os.chdir(day_path(day))
+    os.chdir(year_day_path(year, day))
 
-    write_instructions(day)
+    write_instructions(day, year)
 
     if part is None:
-        run_parallel(day, 1, stop_when_submitted, n_workers)
-        run_parallel(day, 2, stop_when_submitted, n_workers)
+        run_parallel(day, 1, stop_when_submitted, n_workers, runs)
+        run_parallel(day, 2, stop_when_submitted, n_workers, runs)
     else:
         if n_workers == 1:
             do_part(0, day, part)
         else:
-            run_parallel(day, part, stop_when_submitted, n_workers)
+            run_parallel(day, part, stop_when_submitted, n_workers, runs)
 
 
 if __name__ == "__main__":
