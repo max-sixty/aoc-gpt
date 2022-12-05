@@ -1,4 +1,6 @@
 **/llm_responses
 **/python_outputs
 **/input.txt
-**/*-*
+**/20*
+.vscode
+__pycache__
