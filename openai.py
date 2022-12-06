@@ -29,8 +29,10 @@ PUZZLE_FILE = "puzzle.md"
 
 THRESHOLD = 2
 
+
 def year_day_path(year: int, day: int) -> Path:
     return Path(f"{year}-{day}")
+
 
 def write_instructions(day: int, year: int) -> None:
     subprocess.run(
@@ -276,8 +278,12 @@ def run_parallel(
         print(f"Reached all attempts without success, stopping. Final results: {c}")
         return
 
+
 def get_year():
-    return int(subprocess.run("date +%Y", shell=True, capture_output=True, text=True).stdout)
+    return int(
+        subprocess.run("date +%Y", shell=True, capture_output=True, text=True).stdout
+    )
+
 
 @click.command()
 @click.option("--part", type=int)
@@ -286,7 +292,11 @@ def get_year():
 @click.option("--n-workers", type=int, default=1)
 @click.option("--runs", type=int, required=False, default=200)
 @click.option("--stop-when-submitted", is_flag=True)
-def run(day: int, year: int, part: int, n_workers: int, runs: int, stop_when_submitted: bool) -> None:
+def run(
+    day: int, year: int, part: int, n_workers: int, runs: int, stop_when_submitted: bool
+) -> None:
+
+    print(f"Running {part=}, {day=}, {year=}")
 
     year_day_path(year, day).mkdir(exist_ok=True)
     (year_day_path(year, day) / RESPONSES_PATH).mkdir(exist_ok=True)
