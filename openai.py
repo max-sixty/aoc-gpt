@@ -6,6 +6,7 @@ import re
 import shlex
 import subprocess
 import textwrap
+import datetime
 from concurrent import futures
 from contextlib import redirect_stdout
 from functools import partial
@@ -278,12 +279,13 @@ def run_parallel(
         print(f"Reached all attempts without success, stopping. Final results: {c}")
         return
 
-
+# This does not work on all systems
+#def get_year():
+#    return int(
+#        subprocess.run("date +%Y", shell=True, capture_output=True, text=True).stdout
+#    )
 def get_year():
-    return int(
-        subprocess.run("date +%Y", shell=True, capture_output=True, text=True).stdout
-    )
-
+    return datetime.datetime.now().year
 
 @click.command()
 @click.option("--part", type=int)
